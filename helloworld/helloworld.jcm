@@ -1,0 +1,104 @@
+/* 
+    helloworld
+    ---------------------------
+
+    JaCaMo Project File
+    
+    This file defines the initial state of the MAS (initial agents, environment, organisation, ....)
+    
+    (see jacamo/doc/jcm.html for more information about what can be defined in this file)
+    
+    JaCaMo 0.6
+    16th December 2016
+*/
+
+mas helloworld {
+
+	agent bob	   : hello.asl {
+		beliefs: message("你好")
+		focus: jacamo.roll_eng
+		focus: jacamo.hello_eng
+	}
+    agent francois : hello.asl {
+    	beliefs: message("Bonjour")
+    	focus: france.gui
+    	focus: italy.gui
+    	focus: jacamo.gui
+    	focus: jacamo.roll_eng
+    	focus: jacamo.hello_eng
+    }
+    agent maria    : hello.asl {
+    	beliefs: message("Bom dia")
+    	focus: brazil.gui
+    	focus: jacamo.roll_eng
+    	focus: jacamo.hello_eng
+    }
+    agent giacomo  : hello.asl {
+    	beliefs: message("Buon giorno")
+    	focus: italy.gui
+    	focus: jacamo.roll_eng
+    	focus: jacamo.hello_eng
+    }
+    agent alice    : hello.asl {
+    	beliefs: message("Good morning")
+    	focus: usa.gui
+    	focus: jacamo.roll_eng
+    	focus: jacamo.hello_eng
+    }
+    
+    workspace jacamo {
+    	artifact gui: display.GUIConsole("Empty")
+		artifact hello_eng: display.GUIConsole("Hello Engineering")
+		artifact roll_eng: display.GUIConsole("Roll Engineering")
+		debug
+    }
+    
+    workspace france {
+        artifact gui: display.GUIConsole("France")
+    }
+
+    workspace italy {
+        artifact gui: display.GUIConsole("Italy")
+    }
+
+    workspace brazil {
+        artifact gui: display.GUIConsole("Brazil")
+    }
+
+    workspace usa {
+        artifact gui: display.GUIConsole("USA")
+    }
+    
+    organisation hello_org: o1.xml {       	// the organisational entity is hello_org from spec o1.xml
+    	scheme hello_eng: hello_sch {      	// instance scheme (hello_eng) from spec hello_sch
+    		debug
+    	}
+    	group jacamo_team: team {          	// instance group (jacamo_team) from spec team
+    		responsible-for: hello_eng 		// that will be responsible for the execution of scheme hello_sch (defined above)
+    		players: francois rv,      		// the roles of the agents in this group
+    		         maria    rl,
+    		         giacomo  rc,
+    		         bob      rs
+    		debug                      		// starts the organisational inspector
+    	}
+    	
+    	scheme roll_eng: roll {      		// instance scheme (roll_eng) from spec roll
+    		debug
+    	}
+    	group bjj_team: team {          	// instance group (bjj_team) from spec team
+    		responsible-for: roll_eng 		// that will be responsible for the execution of scheme roll (defined above)
+    		players: bob	  rv,      		// the roles of the agents in this group
+    		         maria    rl,
+    		         bob	  rc,
+    		         alice    rs,
+    		debug                      		// starts the organisational inspector
+    	}
+    }
+    
+    
+    // agent source path
+    asl-path: src/agt
+              src/agt/inc
+
+}
+
