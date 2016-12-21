@@ -1,0 +1,40 @@
+/* 
+    hellobdi
+    ---------------------------
+
+    JaCaMo Project File
+    
+    This file defines the initial state of the MAS (initial agents, environment, organisation, ....)
+    
+    (see jacamo/doc/jcm.html for more information about what can be defined in this file)
+    
+    JaCaMo 0.7-SNAPSHOT
+    21st December 2016
+*/
+
+mas bdihello {
+
+    agent bob_mentalist : mentalist.asl
+    agent bob_believer : believer.asl
+    agent bob_vigilant : vigilant.asl
+    agent bob_revisionist : revisionist.asl
+    agent bob_lazy : lazy.asl
+    agent alice_to_vigilant : alice_to_vigilant.asl
+    agent alice_to_revisionist : alice_to_revisionist.asl
+    agent alice_to_lazy : alice_to_lazy.asl
+    
+    
+    workspace world {
+      artifact cal: Calendar {
+         focused-by: bob_believer
+      }
+  	}
+    
+    // agent source path
+    asl-path: src/agt
+              src/agt/inc
+
+    
+    
+}
+
